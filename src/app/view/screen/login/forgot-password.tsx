@@ -45,8 +45,8 @@ export const ForgotPassword = () => {
             forgotPassword({ email }).then((resp: any) => {
                 console.log(resp, 'resprespresp')
                 if (resp.data && resp.data.DATA) {
-                    successNotification("Success, please reset your password!!")
-                    history.push(BASE_RESET_PASSWORD + "/" + resp.data.DATA.token)
+                    successNotification("Please check your email to reset your password!!")
+                    // history.push(BASE_RESET_PASSWORD + "/" + resp.data.DATA.token)
                 } else {
                     errorNotification("Service Error: " + (resp.data && resp.data.MESSAGE ? resp.data.MESSAGE : '') + "!!")
                     setServiceMessage("Service Error: " + (resp.data && resp.data.MESSAGE ? resp.data.MESSAGE : '') + "!!")
