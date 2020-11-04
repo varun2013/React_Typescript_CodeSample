@@ -4,7 +4,8 @@ import { onLogout } from '../../../routing/authService'
 
 function Dashboard() {
 
-    let UserData = User.getUserDetails()
+    let data = User.getUserDetails()
+    let UserData = data.user_data
     return (
         <div className="login_signup main-site">
             <main className="site-body">
