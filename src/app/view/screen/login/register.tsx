@@ -87,7 +87,7 @@ export const Register = () => {
         if (getError === false && emailErr === '' && passwordErr === '' && confirmPasswordErr === '' && firstNameErr === '' && lastNameErr === '') {
             console.log({ email, password, password_confirmation: confirmPassword, firstName, lastName })
             register({ email, password, first_name: firstName, last_name: lastName }).then((resp: any) => {
-                if (resp.success && resp.data && resp.data.DATA) {
+                if (resp.success && resp.data && resp.data.STATUS && resp.data.STATUS === "SUCCESS") {
                     successNotification('Registration successful!!')
                     history.push(LOGIN)
                 } else {

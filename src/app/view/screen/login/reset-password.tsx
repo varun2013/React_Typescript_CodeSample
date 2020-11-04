@@ -64,7 +64,7 @@ export const ResetPassword = (props: ResetPasswordProps) => {
 
         if (getError === false && passwordErr === '' && confirmPasswordErr === '') {
             resetPassword({ password, confirm_password:confirmPassword, token }).then((resp: any) => {
-                if (resp.success) {
+                if (resp.success && resp.data.STATUS && resp.data.STATUS === "SUCCESS") {
                     successNotification('Password updated successfully!!')
                     history.push(LOGIN)
                 } else {

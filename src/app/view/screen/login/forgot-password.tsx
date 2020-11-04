@@ -44,7 +44,7 @@ export const ForgotPassword = () => {
         if (getError === false && emailErr === '') {
             forgotPassword({ email }).then((resp: any) => {
                 console.log(resp, 'resprespresp')
-                if (resp.data && resp.data.DATA) {
+                if (resp.data && resp.data.STATUS && resp.data.STATUS === "SUCCESS") {
                     successNotification("Please check your email to reset your password!!")
                     // history.push(BASE_RESET_PASSWORD + "/" + resp.data.DATA.token)
                 } else {

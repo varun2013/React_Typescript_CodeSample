@@ -52,7 +52,7 @@ export const Login = () => {
             console.log({ email, password })
             login({ email, password }).then((resp: any) => {
                 console.log(resp, 'resprespresp')
-                if (resp.success && resp.data && resp.data.DATA) {
+                if (resp.success && resp.data && resp.data.STATUS && resp.data.STATUS === "SUCCESS") {
                     User.setUserDetails(resp.data.DATA)
                     history.push(DASHBOARD)
                 } else {
