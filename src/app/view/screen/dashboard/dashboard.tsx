@@ -11,7 +11,7 @@ function Dashboard() {
   useEffect(()=>{
     let data = User.getUserDetails();
     if (data && data.user_data) {
-      setUserData(prevState => ({ ...prevState, ...data.user_data}));
+      setUserData({ ...data.user_data});
     }
   },[]);
 
