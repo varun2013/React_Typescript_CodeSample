@@ -10,8 +10,8 @@ import { successNotification, errorNotification } from '../../../common/notifica
 export const Register = () => {
 
 
-    // Set initial State Value  
-    const [state, setState] = useState({
+    // Set initial State Value
+    const [userData, setUserData] = useState({
         email: "", password: "", confirmPassword: "", emailErr: '', passwordErr: "", confirmPasswordErr: "",
         firstName: "", firstNameErr: "", lastName: "", lastNameErr: ""
 
@@ -20,9 +20,9 @@ export const Register = () => {
 
 
 
-    // Check Validation Function 
+    // Check Validation Function
     const checkValidation = (field: object, value: string, type: string, maxLength: number | null, minLength: number | null) => {
-        return fieldValidator(field, value, type, state.password, maxLength, minLength)
+        return fieldValidator(field, value, type, userData.password, maxLength, minLength)
     }
 
     // Set The Login Input Values
@@ -31,15 +31,15 @@ export const Register = () => {
         if (error.errorMsg === 'Please enter confirm password.') {
             error.errorMsg = 'Please confirm password.'
         }
-        setState({ ...state, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
+        setUserData({ ...userData, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
         setServiceMessage('');
     }
 
     // Submit Registration Function
     const saveUserData = () => {
-        let email = state.email, password = state.password, confirmPassword = state.confirmPassword,
+        let email = userData.email, password = userData.password, confirmPassword = userData.confirmPassword,
             emailErr = '', passwordErr = '', confirmPasswordErr = '',
-            firstName = state.firstName, firstNameErr = "", lastName = state.lastName, lastNameErr = "",
+            firstName = userData.firstName, firstNameErr = "", lastName = userData.lastName, lastNameErr = "",
             getError = false;
 
         if (validateInputs('string', firstName) === 'empty') {
@@ -82,7 +82,7 @@ export const Register = () => {
             getError = true;
         }
 
-        setState({ ...state, emailErr, passwordErr, confirmPasswordErr, firstNameErr, lastNameErr })
+        setUserData({ ...userData, emailErr, passwordErr, confirmPasswordErr, firstNameErr, lastNameErr })
 
         if (getError === false && emailErr === '' && passwordErr === '' && confirmPasswordErr === '' && firstNameErr === '' && lastNameErr === '') {
             console.log({ email, password, password_confirmation: confirmPassword, firstName, lastName })
@@ -117,28 +117,28 @@ export const Register = () => {
                                     <div className="card-body">
                                         <div className={"form-group"}>
                                             <label htmlFor="exampleFormControlInput1">First Name </label>
-                                            <input type="text" name="firstName" value={state.firstName} onChange={(e) => setInputValue(e, 'string', null, null)} className="form-control" placeholder="First Name" />
-                                            {state.firstNameErr ? <span className="errorCls"> {state.firstNameErr}</span> : ''}
+                                            <input type="text" name="firstName" value={userData.firstName} onChange={(e) => setInputValue(e, 'string', null, null)} className="form-control" placeholder="First Name" />
+                                            {userData.firstNameErr ? <span className="errorCls"> {userData.firstNameErr}</span> : ''}
                                         </div>
                                         <div className={"form-group"}>
                                             <label htmlFor="exampleFormControlInput1">Last Name</label>
-                                            <input type="text" name="lastName" value={state.lastName} onChange={(e) => setInputValue(e, 'string', null, null)} className="form-control" placeholder="Last Name" />
-                                            {state.lastNameErr ? <span className="errorCls"> {state.lastNameErr}</span> : ''}
+                                            <input type="text" name="lastName" value={userData.lastName} onChange={(e) => setInputValue(e, 'string', null, null)} className="form-control" placeholder="Last Name" />
+                                            {userData.lastNameErr ? <span className="errorCls"> {userData.lastNameErr}</span> : ''}
                                         </div>
                                         <div className={"form-group"}>
                                             <label htmlFor="exampleFormControlInput1">Email</label>
-                                            <input type="text" name="email" value={state.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
-                                            {state.emailErr ? <span className="errorCls"> {state.emailErr}</span> : ''}
+                                            <input type="text" name="email" value={userData.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
+                                            {userData.emailErr ? <span className="errorCls"> {userData.emailErr}</span> : ''}
                                         </div>
                                         <div className={"form-group"}>
                                             <label htmlFor="exampleFormControlInput1">Password</label>
-                                            <input type="password" name="password" value={state.password} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Password" />
-                                            {state.passwordErr ? <span className="errorCls"> {state.passwordErr}</span> : ''}
+                                            <input type="password" name="password" value={userData.password} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Password" />
+                                            {userData.passwordErr ? <span className="errorCls"> {userData.passwordErr}</span> : ''}
                                         </div>
                                         <div className={"form-group"}>
                                             <label htmlFor="exampleFormControlInput1">Confirm Password</label>
-                                            <input type="password" name="confirmPassword" value={state.confirmPassword} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Confirm Password" />
-                                            {state.confirmPasswordErr ? <span className="errorCls"> {state.confirmPasswordErr}</span> : ''}
+                                            <input type="password" name="confirmPassword" value={userData.confirmPassword} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Confirm Password" />
+                                            {userData.confirmPasswordErr ? <span className="errorCls"> {userData.confirmPasswordErr}</span> : ''}
                                         </div>
                                         <div className="form-group">
                                             <button type="button" onClick={() => saveUserData()} className="btn btn-block btn-primary">Sign up</button>

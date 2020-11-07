@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { User } from '../../../storage/index'
 import { onLogout } from '../../../routing/authService'
 
 function Dashboard() {
 
-    let data = User.getUserDetails()
-    let UserData = data.user_data
+  const [userData, setUserData] = useState({
+      first_name: "", last_name: "", email: ''
+  });
+
+  useEffect(()=>{
+    let data = User.getUserDetails();
+    if (data && data.user_data) {
+      setUserData(prevState => ({ ...prevState, ...data.user_data}));
+    }
+  },[]);
+
+
+
     return (
         <div className="login_signup main-site">
             <main className="site-body">
@@ -19,8 +30,8 @@ function Dashboard() {
                                     </div>
                                     <div className="card-body">
 
-                                        <h3 className=" text-center">Hi {UserData.first_name ? UserData.first_name : ''} {UserData.last_name ? UserData.last_name : ''},</h3>
-                                        <h5 className=" text-center">Email : {UserData.email ? UserData.email : ''}</h5>
+                                        <h3 className=" text-center">Hi {userData.first_name ? userData.first_name : ''} {userData.last_name ? userData.last_name : ''},</h3>
+                                        <h5 className=" text-center">Email : {userData.email ? userData.email : ''}</h5>
                                         <div className="text-center mt-3"><button className="btn btn-danger" onClick={() => onLogout()}> Logout </button></div>
                                     </div>
                                 </div>

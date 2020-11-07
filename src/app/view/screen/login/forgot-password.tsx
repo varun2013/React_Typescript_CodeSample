@@ -10,12 +10,12 @@ import { successNotification, errorNotification } from '../../../common/notifica
 export const ForgotPassword = () => {
 
 
-    const [state, setState] = useState({
+    const [userData, setUserData] = useState({
         email: "", emailErr: ''
     });
     const [serviceMessage, setServiceMessage] = useState('');
 
-    // Check Validation Function 
+    // Check Validation Function
     const checkValidation = (field: object, value: string, type: string, maxLength: number | null, minLength: number | null) => {
         return fieldValidator(field, value, type, null, maxLength, minLength)
     }
@@ -23,13 +23,13 @@ export const ForgotPassword = () => {
     // Set The Login Input Values
     const setInputValue = (e: { target: { name: any, value: string } }, type: string, maxLength: number | null, minLength: number | null) => {
         let error = checkValidation(e.target.name, e.target.value, type, maxLength, minLength)
-        setState({ ...state, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
+        setUserData({ ...userData, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
         setServiceMessage('');
     }
 
     // Forgot Passsword Function
     const forgotPasswordSubmit = () => {
-        let email = state.email, emailErr = '', getError = false;
+        let email = userData.email, emailErr = '', getError = false;
 
         if (validateInputs('email', email) === 'empty') {
             emailErr = 'Please enter email.';
@@ -39,7 +39,7 @@ export const ForgotPassword = () => {
             getError = true;
         }
 
-        setState({ ...state, emailErr })
+        setUserData({ ...userData, emailErr })
 
         if (getError === false && emailErr === '') {
             forgotPassword({ email }).then((resp: any) => {
@@ -77,8 +77,8 @@ export const ForgotPassword = () => {
                                         <form>
                                             <div className={"form-group"}>
                                                 <label htmlFor="exampleFormControlInput1">Email</label>
-                                                <input name="email" type="email" value={state.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
-                                                {state.emailErr ? <span className="errorCls"> {state.emailErr}</span> : ''}
+                                                <input name="email" type="email" value={userData.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
+                                                {userData.emailErr ? <span className="errorCls"> {userData.emailErr}</span> : ''}
                                             </div>
                                             <div className="form-group">
                                                 <button type="button" onClick={() => forgotPasswordSubmit()} className="btn btn-block btn-primary">Submit</button>

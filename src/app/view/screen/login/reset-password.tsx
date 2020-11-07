@@ -22,26 +22,26 @@ export const ResetPassword = (props: ResetPasswordProps) => {
         token = props.match.params.token;
     }
     
-    const [state, setState] = useState({
+    const [userData, setUserData] = useState({
         password: "", confirmPassword: "", passwordCls: "", passwordErr: "", confirmPasswordCls: "", confirmPasswordErr: "",
     });
     const [serviceMessage, setServiceMessage] = useState('');
 
-    // Check Validation Function 
+    // Check Validation Function
     const checkValidation = (field: object, value: string, type: string, maxLength: number | null, minLength: number | null) => {
-        return fieldValidator(field, value, type, state.password, maxLength, minLength)
+        return fieldValidator(field, value, type, userData.password, maxLength, minLength)
     }
 
     // Set The Login Input Values
     const setInputValue = (e: { target: { name: any, value: string } }, type: string, maxLength: number | null, minLength: number | null) => {
         let error = checkValidation(e.target.name, e.target.value, type, maxLength, minLength)
-        setState({ ...state, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
+        setUserData({ ...userData, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
         setServiceMessage('')
     }
 
     // Reset Passsword Function
     const resetPasswordSubmit = () => {
-        let password = state.password, confirmPassword = state.confirmPassword,
+        let password = userData.password, confirmPassword = userData.confirmPassword,
         passwordErr = '', confirmPasswordErr = '', getError = false;
 
         if (validateInputs('password', password) === 'empty') {
@@ -60,7 +60,7 @@ export const ResetPassword = (props: ResetPasswordProps) => {
             getError = true;
         }
 
-        setState({ ...state, passwordErr, confirmPasswordErr })
+        setUserData({ ...userData, passwordErr, confirmPasswordErr })
 
         if (getError === false && passwordErr === '' && confirmPasswordErr === '') {
             resetPassword({ password, confirm_password:confirmPassword, token }).then((resp: any) => {
@@ -95,13 +95,13 @@ export const ResetPassword = (props: ResetPasswordProps) => {
                                         <form>
                                             <div className={"form-group"}>
                                                 <label htmlFor="exampleFormControlInput1">New Password</label>
-                                                <input type="password" name="password" value={state.password} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Password" />
-                                                {state.passwordErr ? <span className="errorCls"> {state.passwordErr}</span> : ''}
+                                                <input type="password" name="password" value={userData.password} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Password" />
+                                                {userData.passwordErr ? <span className="errorCls"> {userData.passwordErr}</span> : ''}
                                             </div>
                                             <div className={"form-group"}>
                                                 <label htmlFor="exampleFormControlInput1">Confirm Password</label>
-                                                <input type="password" name="confirmPassword" value={state.confirmPassword} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Confirm Password" />
-                                                {state.confirmPasswordErr ? <span className="errorCls"> {state.confirmPasswordErr}</span> : ''}
+                                                <input type="password" name="confirmPassword" value={userData.confirmPassword} onChange={(e) => setInputValue(e, 'password', null, null)} className="form-control" placeholder="Confirm Password" />
+                                                {userData.confirmPasswordErr ? <span className="errorCls"> {userData.confirmPasswordErr}</span> : ''}
                                             </div>
                                             <div className="form-group">
                                                 <button type="button" onClick={() => resetPasswordSubmit()} className="btn btn-block btn-primary">Submit</button>

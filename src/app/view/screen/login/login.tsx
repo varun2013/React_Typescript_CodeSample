@@ -10,28 +10,28 @@ import { errorNotification } from '../../../common/notification-alert'
 
 export const Login = () => {
 
-    // Set initial State Value  
-    const [state, setState] = useState({
+    // Set initial State Value
+    const [userData, setUserData] = useState({
         email: "", password: "", emailErr: '', passwordErr: "",
     });
     const [serviceMessage, setServiceMessage] = useState('');
 
 
-    // Check Validation Function 
+    // Check Validation Function
     const checkValidation = (field: object, value: string, type: string, maxLength: number | null, minLength: number | null) => {
-        return fieldValidator(field, value, type, state.password, maxLength, minLength)
+        return fieldValidator(field, value, type, userData.password, maxLength, minLength)
     }
 
     // Set The Login Input Values
     const setInputValue = (e: { target: { name: any, value: string } }, type: string, maxLength: number | null, minLength: number | null) => {
         let error = checkValidation(e.target.name, e.target.value, type, maxLength, minLength)
-        setState({ ...state, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
+        setUserData({ ...userData, [e.target.name]: e.target.value, [error.fieldNameErr]: error.errorMsg, [error.fieldCls]: error.setClassName });
         setServiceMessage('');
     }
 
     // Login Function
     const loginSubmit = () => {
-        let email = state.email, password = state.password, emailErr = '', passwordErr = '', getError = false;
+        let email = userData.email, password = userData.password, emailErr = '', passwordErr = '', getError = false;
 
         if (validateInputs('email', email) === 'empty') {
             emailErr = 'Please enter email.';
@@ -46,7 +46,7 @@ export const Login = () => {
             getError = true;
         }
 
-        setState({ ...state, emailErr, passwordErr })
+        setUserData({ ...userData, emailErr, passwordErr })
 
         if (getError === false && emailErr === '' && passwordErr === '') {
             console.log({ email, password })
@@ -68,7 +68,7 @@ export const Login = () => {
     }
 
 
-    // On Enter Sign In 
+    // On Enter Sign In
     const keyPressDownEvent = (e: { key: string }) => {
         if (e.key === 'Enter') {
             loginSubmit();
@@ -92,13 +92,13 @@ export const Login = () => {
                                         <form>
                                             <div className="form-group">
                                                 <label htmlFor="exampleFormControlInput1">Email</label>
-                                                <input type="email" onKeyDown={(e) => keyPressDownEvent(e)} name="email" value={state.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
-                                                {state.emailErr ? <span className="errorCls"> {state.emailErr}</span> : ''}
+                                                <input type="email" onKeyDown={(e) => keyPressDownEvent(e)} name="email" value={userData.email} onChange={(e) => setInputValue(e, 'email', null, null)} className="form-control" placeholder="Email" />
+                                                {userData.emailErr ? <span className="errorCls"> {userData.emailErr}</span> : ''}
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="Password">Password</label>
-                                                <input onKeyDown={(e) => keyPressDownEvent(e)} className="form-control" type="password" name="password" value={state.password} onChange={(e) => setInputValue(e, 'required', null, null)} placeholder="Password" id="Password" />
-                                                {state.passwordErr ? <span className="errorCls"> {state.passwordErr}</span> : ''}
+                                                <input onKeyDown={(e) => keyPressDownEvent(e)} className="form-control" type="password" name="password" value={userData.password} onChange={(e) => setInputValue(e, 'required', null, null)} placeholder="Password" id="Password" />
+                                                {userData.passwordErr ? <span className="errorCls"> {userData.passwordErr}</span> : ''}
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group text-right col-12">
